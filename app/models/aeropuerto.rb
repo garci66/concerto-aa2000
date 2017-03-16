@@ -2,9 +2,9 @@ class Aeropuerto < DynamicContent
   DISPLAY_NAME = 'Aeropuerto'
 
   AIRPORTS = {
-    'ezeiza' => 'Ezeiza',
-    'aeroparque' => 'Aeroparque',
-    'iguazu' => 'Iguazú'   
+    'ezeiza' => 'Ezeiza (EZE)',
+    'aeroparque' => 'Aeroparque (AEP)',
+    'iguazu' => 'Iguazú (IGR)'   
   }
 
   INFO_TYPES = {
@@ -31,7 +31,7 @@ class Aeropuerto < DynamicContent
         <style>
             .vuelos-tabla table.scrollvuelos-main tbody.minitable {
                 display: block;
-                height: 100%
+                height: 92vh;
             }
         </style>
         <script type='text/javascript' src='http://www.aa2000.com.ar/js/jquery-1.11.1.min.js'></script>
@@ -58,7 +58,7 @@ class Aeropuerto < DynamicContent
                         var nowTimeCalc = $('.listArribos .popup td.hora.stda:contains(' + nowTime + ':)');
                     }
                     var positionNow = nowTimeCalc.offset().top - $('.listArribos').offset().top;
-                    $('body').animate({ scrollTop: positionNow }, 'fast');
+                    $('tbody.listArribos').animate({ scrollTop: positionNow }, 'fast');
                 }
                 if ($('#partidas table.scrollvuelos-main').find('tbody').find('tr.popup').length > 10) {
                     var nowTimeCalc = $('.listPartidas .popup td.hora.stda:contains(' + nowTime + ':)');
@@ -67,12 +67,15 @@ class Aeropuerto < DynamicContent
                         var nowTimeCalc = $('.listPartidas .popup td.hora.stda:contains(' + nowTime + ':)');
                     }
                     var positionNow = nowTimeCalc.offset().top - $('.listPartidas').offset().top;
-                    $('body').animate({ scrollTop: positionNow }, 'fast');
+                    $('tbody.listPartidas').animate({ scrollTop: positionNow }, 'fast');
                 }
             }
         </script>
         </head>
         <body id='intro' class='intro-aep'>
+        <h3 style='text-align:center'>" + \
+        Aeropuerto::AIRPORTS[self.config['airport']] +\
+          "</h3>
           <div class='vuelos-tabla' id='vuelos-tabla'>
           </div>
         </div>
@@ -84,7 +87,7 @@ class Aeropuerto < DynamicContent
     uri= URI.parse('http://www.aa2000.com.ar/' + self.config['airport'])
     http = Net::HTTP.new(uri.host, uri.port)
     
-    if self.config[':language'] == 'en'
+    if self.config['language'] == 'en'
       initheader = {'X-MicrosoftAjax' => 'Delta=true', 'User-Agent' => 'Mozilla/5.0', 'Cookie' => 'Idioma=EN-US'}
     else
       # Do not set the language cookie
@@ -93,7 +96,7 @@ class Aeropuerto < DynamicContent
 
     req = Net::HTTP::Post.new(uri.path, initheader)
 
-    if self.config[':info_type'] == 'a'
+    if self.config['info_type'] == 'a'
       req.set_form_data( {'__EVENTTARGET' => 'CargarGrillaTimer'} )
       flightsDivId='#arribos'
     else
