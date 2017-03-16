@@ -19,5 +19,5 @@ Gem::Specification.new do |s|
   s.add_dependency "rails"
   s.add_dependency "nokogiri"
   s.add_dependency "concerto_iframe"
-  s.add_dependency "base64"
+
 end
