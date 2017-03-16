@@ -31,7 +31,7 @@ class Aeropuerto < DynamicContent
         <style>
             .vuelos-tabla table.scrollvuelos-main tbody.minitable {
                 display: block;
-                height: 92vh;
+                height: 90vh;
             }
         </style>
         <script type='text/javascript' src='http://www.aa2000.com.ar/js/jquery-1.11.1.min.js'></script>
