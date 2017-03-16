@@ -4,7 +4,7 @@ class Aeropuerto < DynamicContent
   AIRPORTS = {
     'ezeiza' => 'Ezeiza',
     'aeroparque' => 'Aeroparque',
-    'iguazu' = 'Iguazú',   
+    'iguazu' = 'Iguazú'   
   }
 
   INFO_TYPES = {
