@@ -2,9 +2,39 @@ class Aeropuerto < DynamicContent
   DISPLAY_NAME = 'Aeropuerto'
 
   AIRPORTS = {
-    'ezeiza' => 'Ezeiza (EZE)',
-    'aeroparque' => 'Aeroparque (AEP)',
-    'iguazu' => 'Iguazú (IGR)'   
+    'aeroparque'  => 'Buenos Aires / Aeroparque (AEP)',
+    'ezeiza'  => 'Buenos Aires / Ezeiza (EZE)',
+    'bariloche'  => 'Bariloche (BRC)',
+    'catamarca'  => 'Catamarca (CTC)',
+    'comrivadavia'  => 'Comodoro Rivadavia (CRD)',
+    'cordoba'  => 'Córdoba (COR)',
+    'esquel'  => 'Esquel (EQS)',
+    'formosa'  => 'Formosa (FMA)',
+    'generalpico'  => 'General Pico (GPO)',
+    'iguazu'  => 'Iguazú (IGR)',
+    'jujuy'  => 'Jujuy (JUJ)',
+    'larioja'  => 'La Rioja (IRJ)',
+    'malargue'  => 'Malargue (LGS)',
+    'mardelplata'  => 'Mar del Plata (MDQ)',
+    'mendoza'  => 'Mendoza (MDZ)',
+    'parana'  => 'Paraná (PRA)',
+    'posadas'  => 'Posadas (PSS)',
+    'puertomadryn'  => 'Puerto Madryn (PMY)',
+    'reconquista'  => 'Reconquista (RCQ)',
+    'resistencia'  => 'Resistencia (RES)',
+    'riocuarto'  => 'Río Cuarto (RCU)',
+    'riogallegos'  => 'Río Gallegos (RGL)',
+    'riogrande'  => 'Río Grande (RGA)',
+    'salta'  => 'Salta (SLA)',
+    'sanfernando'  => 'San Fernando (FDO)',
+    'sanjuan'  => 'San Juan (UAQ)',
+    'sanluis'  => 'San Luis (LUQ)',
+    'sanrafael'  => 'San Rafael (AFA)',
+    'santarosa'  => 'Santa Rosa (RSA)',
+    'sgoestero'  => 'Sgo. del Estero (SDE)',
+    'tucuman'  => 'Tucumán (TUC)',
+    'viedma'  => 'Viedma (VDM)',
+    'villamercedes'  => 'Villa Mercedes (VME)'   
   }
 
   INFO_TYPES = {
@@ -32,7 +62,7 @@ class Aeropuerto < DynamicContent
       type_description = (self.config['info_type']=='a') ? 'Arribos' : 'Salidas'
     end
 
-    container="<head id='Head1'><meta diego='utf891'/><meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+    container='<head id='Head1'><meta diego='utf891'/><meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
         <meta name='viewport' content='width=device-width, user-scalable=yes' />
         <link rel='stylesheet' type='text/css' href='http://www.aa2000.com.ar/stylesheets/screen.min.css' />
         <link rel='stylesheet' type='text/css' href='http://www.aa2000.com.ar/stylesheets/menu-fullscreen.min.css' />
@@ -82,15 +112,15 @@ class Aeropuerto < DynamicContent
         </script>
         </head>
         <body id='intro' class='intro-aep'>
-        <h3 style='text-align:center'>" + \
-        Aeropuerto::AIRPORTS[self.config['airport']] + " - " + type_description + \
-          "</h3>
+        <h3 style='text-align:center'>' + \
+        Aeropuerto::AIRPORTS[self.config['airport']] + ' - ' + type_description + \
+          '</h3>
           <div class='vuelos-tabla' id='vuelos-tabla'>
           </div>
         </div>
 
         </body>
-    </html>"
+    </html>'
     
 
     uri= URI.parse('http://www.aa2000.com.ar/' + self.config['airport'])
@@ -109,7 +139,7 @@ class Aeropuerto < DynamicContent
     res=http.request(req)
     res.body.force_encoding('utf-8')
     body=res.body.split('|')[7]
-    body.gsub!(/\r/, " ").gsub!(/>\s*</, "><")
+    body.gsub!(/\r/, ' ').gsub!(/>\s*</, '><')
 
     parsedBody=Nokogiri::HTML::fragment(body)
     containerNoko=Nokogiri::HTML(container)
@@ -119,10 +149,10 @@ class Aeropuerto < DynamicContent
 
     # Create Iframe content
     iframe = Iframe.new()
-    iframe.name = "Flight " + Aeropuerto::INFO_TYPES[self.config['info_type']] + \
-      " information for " + Aeropuerto::AIRPORTS[self.config['airport']] + \
-      " in " + Aeropuerto::LANGUAGES[self.config['language']]
-    iframe.data = JSON.dump( 'url' => "data:text/html;charset=utf-8;base64, " + Base64.strict_encode64(html))
+    iframe.name = 'Flight ' + Aeropuerto::INFO_TYPES[self.config['info_type']] + \
+      ' information for ' + Aeropuerto::AIRPORTS[self.config['airport']] + \
+      ' in ' + Aeropuerto::LANGUAGES[self.config['language']]
+    iframe.data = JSON.dump( 'url' => 'data:text/html;charset=utf-8;base64, ' + Base64.strict_encode64(html))
 
     return [iframe]
   end

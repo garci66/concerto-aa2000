@@ -7,11 +7,11 @@ require "concerto_aeropuerto/version"
 Gem::Specification.new do |s|
   s.name        = "concerto_aeropuerto"
   s.version     = ConcertoAeropuerto::VERSION
-  s.authors     = ["Brian Michalski"]
-  s.email       = ["bmichalski@gmail.com"]
-  s.homepage    = "https://github.com/concerto/concerto-weather"
+  s.authors     = ["Diego Garcia del Rio"]
+  s.email       = ["garci66@gmail.com"]
+  s.homepage    = "https://github.com/garci66/concerto-aa2000"
   s.summary     = "Aeropuerto plugin for Concerto 2."
-  s.description = "Show the current weather and a short forecast in the sidebar of Concerto 2."
+  s.description = "Show the current flight status (arr/dep) for AA2000 Argentinian Airports"
   s.license     = 'Apache 2.0'
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["LICENSE", "Rakefile", "README.md"]
