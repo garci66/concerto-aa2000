@@ -62,7 +62,7 @@ class Aeropuerto < DynamicContent
       type_description = (self.config['info_type']=='a') ? 'Arribos' : 'Salidas'
     end
 
-    container='<head id='Head1'><meta diego='utf891'/><meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+    container="<head id='Head1'><meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
         <meta name='viewport' content='width=device-width, user-scalable=yes' />
         <link rel='stylesheet' type='text/css' href='http://www.aa2000.com.ar/stylesheets/screen.min.css' />
         <link rel='stylesheet' type='text/css' href='http://www.aa2000.com.ar/stylesheets/menu-fullscreen.min.css' />
@@ -112,15 +112,15 @@ class Aeropuerto < DynamicContent
         </script>
         </head>
         <body id='intro' class='intro-aep'>
-        <h3 style='text-align:center'>' + \
+        <h3 style='text-align:center'>" + \
         Aeropuerto::AIRPORTS[self.config['airport']] + ' - ' + type_description + \
-          '</h3>
+          "</h3>
           <div class='vuelos-tabla' id='vuelos-tabla'>
           </div>
         </div>
 
         </body>
-    </html>'
+    </html>"
     
 
     uri= URI.parse('http://www.aa2000.com.ar/' + self.config['airport'])
