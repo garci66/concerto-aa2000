@@ -1,8 +1,8 @@
-<%= javascript_include_tag "concerto_weather/application" %>
-<%= stylesheet_link_tag "concerto_weather/application" %>
+<%= javascript_include_tag "concerto_aeropuerto/application" %>
+<%= stylesheet_link_tag "concerto_aeropuerto/application" %>
 
 <fieldset>
-  <legend><span>Weather</span></legend>
+  <legend><span>Aeropuerto</span></legend>
   <div class="row-fluid">
     <% if ConcertoConfig["open_weather_map_api_key"].blank? %>
     <div class='alert alert-warning'>
@@ -23,19 +23,19 @@
       <div class="clearfix">
         <%= config.label :units %>
         <div class="input">
-          <%= config.select :units, Weather::UNITS.map {|k,v| [v, k]}, :selected => @content.config['units'] %>
+          <%= config.select :units, Aeropuerto::UNITS.map {|k,v| [v, k]}, :selected => @content.config['units'] %>
         </div>
       </div>
       <div class="clearfix">
         <%= config.label :font_name %>
         <div class="input">
-          <%= config.select :font_name, Weather::FONTS.map {|k,v| [v, k]}, :selected => @content.config['font_name'] %>
+          <%= config.select :font_name, Aeropuerto::FONTS.map {|k,v| [v, k]}, :selected => @content.config['font_name'] %>
         </div>
       </div>
       <div class="clearfix">
         <%= config.label :forecast_type %>
         <div class="input">
-          <%= config.select :forecast_type, Weather::FORECAST.map {|k,v| [v, k]}, :selected => @content.config['forecast_type'] %>
+          <%= config.select :forecast_type, Aeropuerto::FORECAST.map {|k,v| [v, k]}, :selected => @content.config['forecast_type'] %>
         </div>
       </div>
       <div class="clearfix">

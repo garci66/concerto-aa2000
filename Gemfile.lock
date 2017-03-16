@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    concerto_weather (0.0.1)
+    concerto_aeropuerto (0.0.1)
       rails (~> 3.2.12)
 
 GEM
@@ -90,5 +90,5 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  concerto_weather!
+  concerto_aeropuerto!
   sqlite3

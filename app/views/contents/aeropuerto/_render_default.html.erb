@@ -1,0 +1,15 @@
+<dl>
+  <h1>Flight Information</h1>
+  <dt>Airport</dt>
+  <dd><%= Aeropuerto::AIRPORTS[content.config['airport']]%></dd>
+  <dt>Flight Type</dt>
+  <dd><%= Aeropuerto::INFO_TYPES[content.config['info_type']] %></dd>
+  <dt>Language</dt>
+  <dd><%= Aeropuerto::LANGUAGES[content.config['language']] %></dd>
+  <dd><%= content.config.include?('last_ok_refresh') ? Time.at(content.config['last_ok_refresh']).strftime('%c') : 'Never' %></dd>
+  <dt>Last Attempted Update</dt>
+  <dd><%= content.config.include?('last_refresh_attempt') ? distance_of_time_in_words_to_now(Time.at(content.config['last_refresh_attempt'])).titleize + ' Ago' : 'Never' %></dd>
+  <dt>Min. Refresh Interval</dt>
+  <dd><%= distance_of_time_in_words(content.config['interval'].to_i) %></dd>
+</dl>
+

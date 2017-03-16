@@ -9,8 +9,5 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require concerto_weather/owfont-regular
- *= require concerto_weather/weather-icons.min
- *= require concerto_weather/weather-icons-wind.min
  *= require_tree .
  */
