@@ -114,7 +114,9 @@ class Aeropuerto < DynamicContent
 
     # Create Iframe content
     iframe = Iframe.new()
-    iframe.name = "Flight " + Aeropuerto::INFO_TYPES[self.config['info_type']] + " information for " +  Aeropuerto::AIRPORTS[self.config['airport']] + " in " + Aeropuerto::LANGUAGES[content.config['language']]
+    iframe.name = "Flight " + Aeropuerto::INFO_TYPES[self.config['info_type']] \
+      + " information for " +  Aeropuerto::AIRPORTS[self.config['airport']] \ 
+      + " in " + Aeropuerto::LANGUAGES[self.config['language']]
     iframe.data = JSON.dump( 'url' => "data:text/html;charset=utf-8;base64, " + Base64.strict_encode64(html))
 
     return [iframe]
