@@ -21,3 +21,15 @@ Concerto 2 Aeropuerto is licensed under the Apache License, Version 2.0.
     (for development)
     ``` RAILS_ENV=development rake assets:precompile```
 
+Please note that the system requires to be able to store large ammounts of data in the "data" column. It currently requires a manual schema change
+
+    Connect to mysql and alter the schema as follows:
+
+    (for production)
+    ``` mysql -u root -p concerto_production```
+    ``` ALTER TABLE contents  MODIFY `data` MEDIUMTEXT;```
+
+    (for development)
+    ``` mysql -u root -p concerto_development```
+    ``` ALTER TABLE contents  MODIFY `data` MEDIUMTEXT;```
+
