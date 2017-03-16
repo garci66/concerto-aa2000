@@ -23,6 +23,15 @@ class Aeropuerto < DynamicContent
     require 'base64'
     require 'json'
 
+    if self.config['language'] == 'en'
+      initheader = {'X-MicrosoftAjax' => 'Delta=true', 'User-Agent' => 'Mozilla/5.0', 'Cookie' => 'Idioma=EN-US'}
+      type_description =  Aeropuerto::INFO_TYPES[self.config['info_type']]
+    else
+      # Do not set the language cookie
+      initheader = {'X-MicrosoftAjax' => 'Delta=true', 'User-Agent' => 'Mozilla/5.0'}
+      type_description = (self.config['info_type']=='a') ? 'Arribos' : 'Salidas'
+    end
+
     container="<head id='Head1'><meta diego='utf891'/><meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
         <meta name='viewport' content='width=device-width, user-scalable=yes' />
         <link rel='stylesheet' type='text/css' href='http://www.aa2000.com.ar/stylesheets/screen.min.css' />
@@ -74,7 +83,7 @@ class Aeropuerto < DynamicContent
         </head>
         <body id='intro' class='intro-aep'>
         <h3 style='text-align:center'>" + \
-        Aeropuerto::AIRPORTS[self.config['airport']] + \
+        Aeropuerto::AIRPORTS[self.config['airport']] + " - " + type_description \
           "</h3>
           <div class='vuelos-tabla' id='vuelos-tabla'>
           </div>
@@ -87,13 +96,6 @@ class Aeropuerto < DynamicContent
     uri= URI.parse('http://www.aa2000.com.ar/' + self.config['airport'])
     http = Net::HTTP.new(uri.host, uri.port)
     
-    if self.config['language'] == 'en'
-      initheader = {'X-MicrosoftAjax' => 'Delta=true', 'User-Agent' => 'Mozilla/5.0', 'Cookie' => 'Idioma=EN-US'}
-    else
-      # Do not set the language cookie
-      initheader = {'X-MicrosoftAjax' => 'Delta=true', 'User-Agent' => 'Mozilla/5.0'}
-    end
-
     req = Net::HTTP::Post.new(uri.path, initheader)
 
     if self.config['info_type'] == 'a'
