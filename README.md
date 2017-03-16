@@ -26,11 +26,11 @@ Please note that the system requires to be able to store large ammounts of data 
 
 Connect to mysql and alter the schema as follows:
 
-(for production)
-    ``` mysql -u root -p concerto_production```
-    ``` ALTER TABLE contents  MODIFY `data` MEDIUMTEXT;```
+* (for production)
+  *  ``` mysql -u root -p concerto_production```
+  *  ``` ALTER TABLE contents  MODIFY `data` MEDIUMTEXT;```
 
-(for development)
-    ``` mysql -u root -p concerto_development```
-    ``` ALTER TABLE contents  MODIFY `data` MEDIUMTEXT;```
+* (for development)
+  *  ``` mysql -u root -p concerto_development```
+  *  ``` ALTER TABLE contents  MODIFY `data` MEDIUMTEXT;```
 
