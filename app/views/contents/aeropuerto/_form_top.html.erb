@@ -2,55 +2,29 @@
 <%= stylesheet_link_tag "concerto_aeropuerto/application" %>
 
 <fieldset>
-  <legend><span>Aeropuerto</span></legend>
+  <legend><span>Airport info for Aeropuertos Argentina 2000</span></legend>
   <div class="row-fluid">
-    <% if ConcertoConfig["open_weather_map_api_key"].blank? %>
-    <div class='alert alert-warning'>
-      The OpenWeatherMap API Key under Settings appears to be blank.  An API key is required for this content.
-    </div>
-    <% end %>
     <div class='span4'>
     <%= form.fields_for :config do |config| %>
       <div class="clearfix">
-        <%= config.label :city_query, "City Search" %>
+        <%= config.label :airport, "Airport" %>
         <div class="input">
-          <%= config.text_field :city_query, placeholder:"Name or Zipcode", value: @content.config['city_id'] %>
-          <%= button_tag type: "button", :class => "btn", onclick: "searchForCityInfo()" do %>
-            <i class="fa fa-refresh"></i>
-          <% end %>
+          <%= config.select :airport, Aeropuerto::AIRPORTS.map {|k,v| [v, k]}, :selected => @content.config['airport'] %>
         </div>
       </div>
       <div class="clearfix">
-        <%= config.label :units %>
+        <%= config.label :info_type, "Flight Information Type" %>
         <div class="input">
-          <%= config.select :units, Aeropuerto::UNITS.map {|k,v| [v, k]}, :selected => @content.config['units'] %>
+          <%= config.select :info_type, Aeropuerto::INFO_TYPES.map {|k,v| [v, k]}, :selected => @content.config['info_type'] %>
         </div>
       </div>
       <div class="clearfix">
-        <%= config.label :font_name %>
+        <%= config.label :language, "Display Language" %>
         <div class="input">
-          <%= config.select :font_name, Aeropuerto::FONTS.map {|k,v| [v, k]}, :selected => @content.config['font_name'] %>
+          <%= config.select :language, Aeropuerto::LANGUAGES.map {|k,v| [v, k]}, :selected => @content.config['language'] %>
         </div>
       </div>
-      <div class="clearfix">
-        <%= config.label :forecast_type %>
-        <div class="input">
-          <%= config.select :forecast_type, Aeropuerto::FORECAST.map {|k,v| [v, k]}, :selected => @content.config['forecast_type'] %>
-        </div>
-      </div>
-      <div class="clearfix">
-        <%= config.label :format_string, "Format String" %>
-        <div class="input">
-          <%= config.text_area :format_string, placeholder:"Format String for the weather output", value: @content.config['format_string'], rows: 6 %>
-        </div>
-      </div>
-
-      <%= config.hidden_field :lat %>
-      <%= config.hidden_field :lng %>
     <% end %>
-    </div>
-    <div class="clearfix">
-      <div class='city-info span8'></div>
     </div>
   </div>
 </fieldset>
