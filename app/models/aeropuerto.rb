@@ -83,7 +83,7 @@ class Aeropuerto < DynamicContent
         </head>
         <body id='intro' class='intro-aep'>
         <h3 style='text-align:center'>" + \
-        Aeropuerto::AIRPORTS[self.config['airport']] + " - " + type_description \
+        Aeropuerto::AIRPORTS[self.config['airport']] + " - " + type_description + \
           "</h3>
           <div class='vuelos-tabla' id='vuelos-tabla'>
           </div>
