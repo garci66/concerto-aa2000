@@ -6,6 +6,7 @@
   <dd><%= Aeropuerto::INFO_TYPES[content.config['info_type']] %></dd>
   <dt>Language</dt>
   <dd><%= Aeropuerto::LANGUAGES[content.config['language']] %></dd>
+  <dt>Last Successful Update</dt>
   <dd><%= content.config.include?('last_ok_refresh') ? Time.at(content.config['last_ok_refresh']).strftime('%c') : 'Never' %></dd>
   <dt>Last Attempted Update</dt>
   <dd><%= content.config.include?('last_refresh_attempt') ? distance_of_time_in_words_to_now(Time.at(content.config['last_refresh_attempt'])).titleize + ' Ago' : 'Never' %></dd>
