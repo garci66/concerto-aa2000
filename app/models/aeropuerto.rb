@@ -149,10 +149,10 @@ class Aeropuerto < DynamicContent
 
     # Create Iframe content
     iframe = Iframe.new()
-    iframe.name = 'Flight ' + Aeropuerto::INFO_TYPES[self.config['info_type']] + \
+    iframe.name = Time.now.strftime('%Y%m%d%H%M%S') + '|Flight ' + Aeropuerto::INFO_TYPES[self.config['info_type']] + \
       ' information for ' + Aeropuerto::AIRPORTS[self.config['airport']] + \
       ' in ' + Aeropuerto::LANGUAGES[self.config['language']]
-    iframe.data = JSON.dump( 'url' => 'data:text/html;charset=utf-8;base64, ' + Base64.strict_encode64(html))
+    iframe.data = JSON.dump( 'url' => 'data:text/html;charset=utf-8;'+ Time.now.strftime('%Y%m%d%H%M%S')+';base64, ' + Base64.strict_encode64(html).slice(0,1000))
 
     return [iframe]
   end
@@ -162,7 +162,7 @@ class Aeropuerto < DynamicContent
   # Aeropuerto needs a location.  Also allow specification of units
   def self.form_attributes
     attributes = super()
-    attributes.concat([:config => [:airport, :language, :info_type]])
+    attributes.concat([:config => [:airport, :language, :info_type, :url]])
   end
 
 end
