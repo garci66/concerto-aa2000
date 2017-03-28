@@ -34,7 +34,7 @@ class Aeropuerto < DynamicContent
     'sgoestero'  => 'Sgo. del Estero (SDE)',
     'tucuman'  => 'Tucumán (TUC)',
     'viedma'  => 'Viedma (VDM)',
-    'villamercedes'  => 'Villa Mercedes (VME)'   
+    'villamercedes'  => 'Villa Mercedes (VME)'
   }
 
   INFO_TYPES = {
@@ -51,7 +51,6 @@ class Aeropuerto < DynamicContent
     require 'json'
     require 'net/http'
     require 'base64'
-    require 'json'
 
     if self.config['language'] == 'en'
       initheader = {'X-MicrosoftAjax' => 'Delta=true', 'User-Agent' => 'Mozilla/5.0', 'Cookie' => 'Idioma=EN-US'}
@@ -121,11 +120,11 @@ class Aeropuerto < DynamicContent
 
         </body>
     </html>"
-    
+
 
     uri= URI.parse('http://www.aa2000.com.ar/' + self.config['airport'])
     http = Net::HTTP.new(uri.host, uri.port)
-    
+
     req = Net::HTTP::Post.new(uri.path, initheader)
 
     if self.config['info_type'] == 'a'
@@ -148,15 +147,18 @@ class Aeropuerto < DynamicContent
     html=containerNoko.to_s
 
     # Create Iframe content
-    iframe = Iframe.new()
+    iframe = Aeropuerto.new
+    #iframe = Iframe.new
     iframe.name = Time.now.strftime('%Y%m%d%H%M%S') + '|Flight ' + Aeropuerto::INFO_TYPES[self.config['info_type']] + \
       ' information for ' + Aeropuerto::AIRPORTS[self.config['airport']] + \
       ' in ' + Aeropuerto::LANGUAGES[self.config['language']]
-    iframe.data = JSON.dump( 'url' => 'data:text/html;charset=utf-8;'+ Time.now.strftime('%Y%m%d%H%M%S')+';base64, ' + Base64.strict_encode64(html).slice(0,1000))
+    iframe.config = self.config
+    iframe.config['url'] = 'data:text/html;charset=utf-8;' + Time.now.strftime('%Y%m%d%H%M%S') +
+      ';base64, ' + Base64.strict_encode64(html).slice(0, 1000)
+    iframe.validate # force the config info into the data property
 
     return [iframe]
   end
-
 
 
   # Aeropuerto needs a location.  Also allow specification of units

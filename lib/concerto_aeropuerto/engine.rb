@@ -9,6 +9,10 @@ module ConcertoAeropuerto
     def plugin_info(plugin_info_class)
       @plugin_info ||= plugin_info_class.new do
         add_route("concerto_aeropuerto", ConcertoAeropuerto::Engine)
+
+        add_controller_hook 'DynamicContent', :alter_content, :after do
+          @new_attributes['config'] = @content.config
+        end
       end
     end
   end
