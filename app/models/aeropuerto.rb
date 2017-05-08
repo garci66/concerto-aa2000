@@ -147,14 +147,13 @@ class Aeropuerto < DynamicContent
     html=containerNoko.to_s
 
     # Create Iframe content
-    iframe = Aeropuerto.new
-    #iframe = Iframe.new
+    iframe = Iframe.new
     iframe.name = Time.now.strftime('%Y%m%d%H%M%S') + '|Flight ' + Aeropuerto::INFO_TYPES[self.config['info_type']] + \
       ' information for ' + Aeropuerto::AIRPORTS[self.config['airport']] + \
       ' in ' + Aeropuerto::LANGUAGES[self.config['language']]
-    iframe.config = self.config
+    #iframe.config = self.config
     iframe.config['url'] = 'data:text/html;charset=utf-8;' + Time.now.strftime('%Y%m%d%H%M%S') +
-      ';base64, ' + Base64.strict_encode64(html).slice(0, 1000)
+      ';base64, ' + Base64.strict_encode64(html)
     iframe.validate # force the config info into the data property
 
     return [iframe]
@@ -164,7 +163,7 @@ class Aeropuerto < DynamicContent
   # Aeropuerto needs a location.  Also allow specification of units
   def self.form_attributes
     attributes = super()
-    attributes.concat([:config => [:airport, :language, :info_type, :url]])
+    attributes.concat([:config => [:airport, :language, :info_type ]])
   end
 
 end
