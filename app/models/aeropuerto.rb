@@ -148,7 +148,7 @@ class Aeropuerto < DynamicContent
 
     # Create Iframe content
     iframe = Iframe.new
-    iframe.name = Time.now.strftime('%Y%m%d%H%M%S') + '|Flight ' + Aeropuerto::INFO_TYPES[self.config['info_type']] + \
+    iframe.name = 'Flight ' + Aeropuerto::INFO_TYPES[self.config['info_type']] + \
       ' information for ' + Aeropuerto::AIRPORTS[self.config['airport']] + \
       ' in ' + Aeropuerto::LANGUAGES[self.config['language']]
     #iframe.config = self.config
